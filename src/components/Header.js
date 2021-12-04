@@ -24,6 +24,11 @@ export default function Header() {
                 </NavLink>
               )}
             </li>
+            <li>
+              <NavLink to="/faq" exact={true}>
+                FAQ
+              </NavLink>
+            </li>
           </ul>
         </nav>
         <div className="account-management d-flex">

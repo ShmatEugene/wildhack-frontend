@@ -1,11 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import Button from '../UI/Button';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ReactToPrint from 'react-to-print';
 import Employee from '../PassTemplates/Employee';
 import Guest from '../PassTemplates/Guest';
+import Faq from '../FAQ/Faq';
 
 function changeDateFormat(date) {
   return new Date(date).toLocaleDateString('en-GB');
@@ -23,7 +24,7 @@ export default function ApplicationsList() {
 
   React.useEffect(() => {
     axios
-      .get('https://ws-order-a-pass.firebaseio.com/orders.json')
+      .get('https://ws-order-a-pass.firebaseio.com/orders2.json')
       .then((response) => {
         setOrders(response.data);
       })
@@ -55,7 +56,7 @@ export default function ApplicationsList() {
   const saveChangesHandler = () => {
     setLoading(true);
     axios
-      .patch('https://ws-order-a-pass.firebaseio.com/orders.json', orders)
+      .patch('https://ws-order-a-pass.firebaseio.com/orders2.json', orders)
       .then((response) => {
         console.log(response);
         setLoading(false);
@@ -75,10 +76,11 @@ export default function ApplicationsList() {
         .map((key) => {
           if (((id && orders[key].key === id) || !id) && !state.isOperator) {
             return (
+              // <div>123</div>
               <tr key={key} onClick={() => orderClickHandler(key)}>
                 <td>{changeDateFormat(orders[key].date)}</td>
-                <td>{orders[key].name}</td>
-                <td>{orderTypes[orders[key].type]}</td>
+                <td>{orders[key].name.text}</td>
+                <td>{orders[key].phoneNumber.text}</td>
                 <td className="align-table-right">
                   <span className={`status ${orders[key].status}`}>
                     {statuses[orders[key].status]}
@@ -120,6 +122,21 @@ export default function ApplicationsList() {
     );
   };
 
+  function renderApplicationInfo(selectedOrder) {
+    const inputs = Object.keys(selectedOrder).map((field, index) => {
+      const applicationInfo = selectedOrder[field];
+      console.log(applicationInfo);
+      return (
+        <div key={index} className="application-block">
+          <h4>{applicationInfo.label}</h4>
+          <p>{applicationInfo.text}</p>
+        </div>
+      );
+    });
+
+    return inputs;
+  }
+
   return (
     <section className="applications-list-section section-indent">
       <h2>Список заявок</h2>
@@ -131,7 +148,7 @@ export default function ApplicationsList() {
               <tr>
                 <th className="table-date">Дата</th>
                 <th className="table-name">ФИО</th>
-                <th className="table-type">Тип пропуска</th>
+                <th className="table-type">Номер</th>
                 <th className="table-status align-table-right">Статус</th>
                 <th className="table-photo align-table-right">Фото</th>
               </tr>
@@ -143,24 +160,30 @@ export default function ApplicationsList() {
               {loading ? '...' : 'Сохранить изменения'}
             </Button>
           )}
+          {id && (
+            <div className="single-application-info">
+              <h3>Информация о заявке</h3>
+              {selectedOrder && renderApplicationInfo(selectedOrder)}
+            </div>
+          )}
         </div>
         {selectedOrder && (
           <div className="d-flex applications-info-block">
             <div className="applications-info">
               <h3>Подробная информация</h3>
               <div className="line"></div>
-              <div className="name">{selectedOrder.name}</div>
-              <div className="email">{selectedOrder.email}</div>
+              <div className="name">{selectedOrder.name.text}</div>
+              <div className="email">{selectedOrder.email.text}</div>
               <div className="info-block">
-                <div className="label">тип</div>
-                <div className="value">{orderTypes[selectedOrder.type]}</div>
+                <div className="label">номер</div>
+                <div className="value">{selectedOrder.phoneNumber.text}</div>
               </div>
               <div className="info-block">
                 <div className="label">статус</div>
                 <div className="value">{statuses[selectedOrder.status]}</div>
               </div>
               <div className="info-block">
-                <div className="label">запрошен</div>
+                <div className="label">подана</div>
                 <div className="value">{changeDateFormat(selectedOrder.date)}</div>
               </div>
               <div className="info-block">
@@ -171,11 +194,11 @@ export default function ApplicationsList() {
                 <div>
                   <div className="info-block">
                     <div className="label">период действия</div>
-                    <div className="value">{`${selectedOrder.startDate} - ${selectedOrder.endDate}`}</div>
+                    {/* <div className="value">{`${selectedOrder.startDate} - ${selectedOrder.endDate}`}</div> */}
                   </div>
                   <div className="info-block">
                     <div className="label">цель посещения</div>
-                    <div className="value">{selectedOrder.purpose}</div>
+                    {/* <div className="value">{selectedOrder.purpose}</div> */}
                   </div>
                 </div>
               ) : null}
@@ -187,6 +210,11 @@ export default function ApplicationsList() {
                   <Button onClick={() => changeStatusHandler('error')} type="error">
                     Отклонить
                   </Button>
+                  {!id && (
+                    <NavLink to={`/applications-list/${selectedOrder.key}`}>
+                      <Button type="pending">Посотреть заявку</Button>
+                    </NavLink>
+                  )}
                 </div>
               )}
               {isAuthenticated && state.login.match('operator') && (
@@ -206,18 +234,18 @@ export default function ApplicationsList() {
                 </div>
               )}
             </div>
-            <div className="pass" ref={printRef}>
+            {/* <div className="pass" ref={printRef}>
               {selectedOrder.type === 1 ? (
                 <Guest
-                  name={selectedOrder.name}
+                  name={selectedOrder.name.text}
                   imgSrc={selectedOrder.imageLink}
-                  startDate={selectedOrder.startDate}
-                  endDate={selectedOrder.endDate}
+                  // startDate={selectedOrder.startDate}
+                  // endDate={selectedOrder.endDate}
                 />
               ) : (
                 <Employee name={selectedOrder.name} imgSrc={selectedOrder.imageLink} />
               )}
-            </div>
+            </div> */}
           </div>
         )}
       </div>

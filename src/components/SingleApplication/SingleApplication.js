@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import ReactToPrint from 'react-to-print';
 import Employee from '../PassTemplates/Employee';
 import Guest from '../PassTemplates/Guest';
+import Faq from '../FAQ/Faq';
 
 function changeDateFormat(date) {
   return new Date(date).toLocaleDateString('en-GB');
@@ -23,15 +24,15 @@ export default function SingleApplication() {
 
   React.useEffect(() => {
     axios
-      .get('https://ws-order-a-pass.firebaseio.com/orders.json')
+      .get(`https://ws-order-a-pass.firebaseio.com/orders2.json/${id}`)
       .then((response) => {
         setOrders(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
   const orderTypes = ['Постоянный', 'Временный'];
   const statuses = {
     ready: 'Пропуск готов',

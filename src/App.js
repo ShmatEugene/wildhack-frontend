@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Auth from './components/Auth/Auth';
 import Logout from './components/Logout';
 import { autoLogin } from './store/actions/auth';
-import SingleApplication from './components/SingleApplication/SingleApplication';
+import Faq from './components/FAQ/Faq';
 
 function App() {
   const state = useSelector(({ auth }) => auth);
@@ -22,7 +22,8 @@ function App() {
     <Switch>
       <Route path="/" exact component={ApplyForAPass} />
       <Route path="/auth" exact component={Auth} />
-      <Route path="/applications-list/:id" exact component={SingleApplication} />
+      <Route path="/applications-list/:id" exact component={ApplicationsList} />
+      <Route path="/faq" exact component={Faq} />
       <Redirect to={'/'} />
     </Switch>
   );
@@ -32,6 +33,7 @@ function App() {
         <Route path="/applications-list" exact component={ApplicationsList} />
         <Route path="/applications-list/:id" exact component={ApplicationsList} />
         <Route path="/logout" exact component={Logout} />
+        <Route path="/faq" exact component={Faq} />
         <Route path="/" exact component={ApplyForAPass} />
         <Redirect to={'/'} />
       </Switch>
