@@ -11,6 +11,7 @@ $black: #262626;
 $light: #fdf9f3;
 $grey: #cbcbcb;
 $dark: #757575;
+$dark2: rgb(61, 61, 61);
 
 $blue: #f0f3f9;
 
@@ -158,6 +159,7 @@ ul {
     font-size: 15px;
     color: $grey;
     font-family: 'Open Sans', sans-serif;
+    color: $dark2;
   }
   input {
     background: $light;
@@ -181,16 +183,18 @@ ul {
 }
 
 .ui-radio {
-  margin-top: 25px;
+  // margin-top: 25px;
   p {
     font-size: 15px;
-    color: $grey;
+    color: $dark2;
     font-family: 'Open Sans', sans-serif;
   }
   .ui-radio-controllers {
+    display: block;
     margin-top: 7px;
     .ui-radio-controller {
-      margin-left: 30px;
+      margin-left: 0px;
+      margin-top: 5px;
       position: relative;
       &:first-child {
         margin-left: 0;
@@ -198,6 +202,7 @@ ul {
       label {
         font-family: 'Open Sans', sans-serif;
         margin-left: 10px;
+        color: $dark;
       }
       input {
         margin-left: 0px;
@@ -516,8 +521,9 @@ ul {
   form {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     .left {
-      width: 35%;
+      width: 55%;
       margin-right: 5%;
     }
     .right {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Button from '../UI/Button';
 import Input from '../UI/Input';
 import { connect } from 'react-redux';
@@ -98,20 +99,20 @@ class Auth extends Component {
       this.state.formControls.password.value,
       false,
     );
-    // const authData = {
-    //   email: this.state.formControls.login.value + '@mail.ru',
-    //   password: this.state.formControls.password.value,
-    //   returnSecureToken: true,
-    // };
-    // try {
-    //   const response = await axios.post(
-    //     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDfrKvNVXLlJ_opm8LU266FIYxkmhlsT5I',
-    //     authData,
-    //   );
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    const authData = {
+      email: this.state.formControls.login.value + '@mail.ru',
+      password: this.state.formControls.password.value,
+      returnSecureToken: true,
+    };
+    try {
+      const response = await axios.post(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDfrKvNVXLlJ_opm8LU266FIYxkmhlsT5I',
+        authData,
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //   registerHandler = async () => {
