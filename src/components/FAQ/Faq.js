@@ -1,4 +1,7 @@
 import React from 'react';
+import axios from 'axios';
+import PublicGoogleSheetsParser from 'public-google-sheets-parser';
+
 import {
   Accordion,
   AccordionItem,
@@ -10,56 +13,45 @@ import {
 import 'react-accessible-accordion/dist/fancy-example.css';
 
 export default function Faq() {
-  //   function renderFaq() {
-  //     const faq = Object.keys(questions).map((question, index) => {
-  //       const applicationInfo = selectedOrder[field];
-  //       return (
-  //         <AccordionItem>
-  //           <AccordionItemHeading>
-  //             <AccordionItemButton>What harsh truths do you prefer to ignore?</AccordionItemButton>
-  //           </AccordionItemHeading>
-  //           <AccordionItemPanel>
-  //             <p>
-  //               Exercitation in fugiat est ut ad ea cupidatat ut in cupidatat occaecat ut occaecat
-  //               consequat est minim minim esse tempor laborum consequat esse adipisicing eu
-  //               reprehenderit enim.
-  //             </p>
-  //           </AccordionItemPanel>
-  //         </AccordionItem>
-  //       );
-  //     });
+  const [questions, setQuestions] = React.useState(null);
 
-  //     return faq;
-  //   }
+  React.useEffect(() => {
+    try {
+      const spreadsheetId = '1C1T9fnmoQ_2r1Cnk-aJos1uEpZER9kj4cucR1rAuQyY';
+      const parser = new PublicGoogleSheetsParser(spreadsheetId);
+      parser.parse().then((items) => {
+        console.log(items);
+        setQuestions(items);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  function renderFaq() {
+    const faq = questions.map((question, index) => {
+      console.log(question);
+      if (question['Вопрос'] && question['Описание']) {
+        return (
+          <AccordionItem>
+            <AccordionItemHeading>
+              <AccordionItemButton>{question['Вопрос']}</AccordionItemButton>
+            </AccordionItemHeading>
+            <AccordionItemPanel>{question['Описание']}</AccordionItemPanel>
+          </AccordionItem>
+        );
+      } else {
+        return null;
+      }
+    });
+
+    return faq;
+  }
 
   return (
     <section className="faq section-indent">
       <h2>FAQ</h2>
-      <Accordion>
-        <AccordionItem>
-          <AccordionItemHeading>
-            <AccordionItemButton>What harsh truths do you prefer to ignore?</AccordionItemButton>
-          </AccordionItemHeading>
-          <AccordionItemPanel>
-            <p>
-              Exercitation in fugiat est ut ad ea cupidatat ut in cupidatat occaecat ut occaecat
-              consequat est minim minim esse tempor laborum consequat esse adipisicing eu
-              reprehenderit enim.
-            </p>
-          </AccordionItemPanel>
-        </AccordionItem>
-        <AccordionItem>
-          <AccordionItemHeading>
-            <AccordionItemButton>Is free will real or just an illusion?</AccordionItemButton>
-          </AccordionItemHeading>
-          <AccordionItemPanel>
-            <p>
-              In ad velit in ex nostrud dolore cupidatat consectetur ea in ut nostrud velit in irure
-              cillum tempor laboris sed adipisicing eu esse duis nulla non.
-            </p>
-          </AccordionItemPanel>
-        </AccordionItem>
-      </Accordion>
+      <Accordion>{questions ? renderFaq() : null}</Accordion>
     </section>
   );
 }

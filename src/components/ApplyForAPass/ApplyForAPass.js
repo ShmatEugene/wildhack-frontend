@@ -25,14 +25,14 @@ function createFormControls() {
     name: {
       ...defaultControl,
       type: 'name',
-      label: 'ФИО',
+      label: 'ФИО *',
       validation: {
         required: { active: true, errorMessage: 'Обязатльное поле' },
       },
     },
     email: {
       ...defaultControl,
-      label: 'Email',
+      label: 'Email *',
       type: 'email',
       validation: {
         required: { active: true, errorMessage: 'Обязатльное поле' },
@@ -41,9 +41,10 @@ function createFormControls() {
     },
     phoneNumber: {
       ...defaultControl,
-      label: 'Номер телефона (с привязкой телеграма)',
+      label: 'Номер телефона (с привязкой телеграма) *',
       validation: {
         required: { active: true, errorMessage: 'Обязатльное поле' },
+        phone: { active: true, errorMessage: 'Введите номер телефона' },
       },
     },
     socialMedia: {
@@ -331,7 +332,20 @@ export default function ApplyForAPass() {
       if (!!value.match(/[^а-я\sё]/i) && value.trim() !== '')
         error.push(validation.cyrillic.errorMessage);
     }
-
+    if (validation.phone) {
+      isValid =
+        !!value.match(
+          /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/gm,
+        ) && isValid;
+      if (
+        !!value.match(
+          /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/gm,
+        ) &&
+        value.trim() !== ''
+      )
+        console.log(validation.phone.errorMessage);
+      error.push(validation.phone.errorMessage);
+    }
     return { isValid, error };
   }
 

@@ -10,6 +10,9 @@ export default function Header() {
   return (
     <>
       <header className="header d-flex">
+        <div className="logo">
+          <NavLink to="/">Портал волонтеров</NavLink>
+        </div>
         <nav>
           <ul className="d-flex">
             <li>

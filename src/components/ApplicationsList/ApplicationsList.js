@@ -212,7 +212,7 @@ export default function ApplicationsList() {
                   </Button>
                   {!id && (
                     <NavLink to={`/applications-list/${selectedOrder.key}`}>
-                      <Button type="pending">Посотреть заявку</Button>
+                      <Button type="pending">Посмотреть заявку</Button>
                     </NavLink>
                   )}
                 </div>

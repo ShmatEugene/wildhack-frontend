@@ -318,6 +318,10 @@ ul {
 .header {
   justify-content: space-between;
   padding: 30px 0 30px 0;
+  .logo {
+    font-weight: bold;
+    font-size: 22px;
+  }
   nav {
     display: flex;
     align-items: center;
