@@ -70,6 +70,20 @@ function createFormControls() {
         required: { active: true, errorMessage: 'Обязатльное поле' },
       },
     },
+    travelExperience: {
+      ...defaultControl,
+      label: 'Какую самую дальнюю точку РФ ты посетил? *',
+      validation: {
+        required: { active: true, errorMessage: 'Обязатльное поле' },
+      },
+    },
+    travelExperience: {
+      ...defaultControl,
+      label: 'Какую самую дальнюю точку РФ ты посетил? *',
+      validation: {
+        required: { active: true, errorMessage: 'Обязатльное поле' },
+      },
+    },
     yourCriteries: {
       ...defaultControl,
       label: 'По каким критериям ты выбираешь волонтёрские проекты?*',
@@ -87,6 +101,29 @@ function createFormControls() {
     mostImportantThing: {
       ...defaultControl,
       label: 'Что для тебя самое важное в твоей профессии? Почему ты занимаешься именно этим?*',
+      validation: {
+        required: { active: true, errorMessage: 'Обязатльное поле' },
+      },
+    },
+    thingYouProudOf: {
+      ...defaultControl,
+      label: 'Приведи пример дела/проекта, которым ты гордишься. Почему для тебя это важно? *',
+      validation: {
+        required: { active: true, errorMessage: 'Обязатльное поле' },
+      },
+    },
+    ecoHabit: {
+      ...defaultControl,
+      label:
+        'Расскажи про любую экопривычку, которая у тебя уже есть или которую пытаешься приобрести. Почему ты это делаешь? *',
+      validation: {
+        required: { active: true, errorMessage: 'Обязатльное поле' },
+      },
+    },
+    harSituation: {
+      ...defaultControl,
+      label:
+        'Опиши кратко самую сложную ситуацию, которая случалась с тобой в коллективе. Как она разрешилась? *',
       validation: {
         required: { active: true, errorMessage: 'Обязатльное поле' },
       },
