@@ -51,6 +51,15 @@ export default function Faq() {
   return (
     <section className="faq section-indent">
       <h2>FAQ</h2>
+      <div className="bot-intro">
+        <p>
+          Ответы на часто задаваемые вопросы также можно найти в{' '}
+          <a className="bot-intro-link" target="_blank" href="https://t.me/kronoki_bot">
+            нашем телеграм боте
+          </a>
+          .
+        </p>
+      </div>
       <Accordion>{questions ? renderFaq() : null}</Accordion>
     </section>
   );

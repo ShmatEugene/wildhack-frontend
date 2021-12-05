@@ -12,6 +12,10 @@ import Home from './components/Home/Home';
 import Footer from './components/Footer';
 
 function App() {
+  React.useEffect(() => {
+    document.title = 'Портал волонтеров';
+  }, []);
+
   const state = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
   const isAuthenticated = !!state.token;
