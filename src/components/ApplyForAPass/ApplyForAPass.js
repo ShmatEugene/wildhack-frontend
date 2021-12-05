@@ -460,7 +460,7 @@ export default function ApplyForAPass() {
           <br />
           {orderLink && (
             <span className={`status pending order-link`}>
-              {`${window.location.href}applications-list/${orderLink}`}
+              {`${window.location.href.replace('apply', '')}applications-list/${orderLink}`}
             </span>
           )}
         </div>
