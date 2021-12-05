@@ -126,12 +126,19 @@ export default function ApplicationsList() {
     const inputs = Object.keys(selectedOrder).map((field, index) => {
       const applicationInfo = selectedOrder[field];
       console.log(applicationInfo);
-      return (
-        <div key={index} className="application-block">
-          <h4>{applicationInfo.label}</h4>
-          <p>{applicationInfo.text}</p>
-        </div>
-      );
+      if (applicationInfo.label) {
+        return (
+          <>
+            <div key={index} className="application-block">
+              <h4>{applicationInfo.label}</h4>
+              <p>{applicationInfo.text}</p>
+            </div>
+            <div className="line"></div>
+          </>
+        );
+      } else {
+        return null;
+      }
     });
 
     return inputs;
