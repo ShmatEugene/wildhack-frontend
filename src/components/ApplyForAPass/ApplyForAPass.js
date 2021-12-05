@@ -466,6 +466,12 @@ export default function ApplyForAPass() {
         </div>
         <div className="right">
           <ImageUploader onUpload={uploadImageHandler} />
+          <div className="ui-photo-picker sh-mt-20">
+            <label htmlFor="photo">
+              <p>Загрузите видеорезюме</p>
+            </label>
+            <input type="file" name="photo" accept="/*" />
+          </div>
         </div>
         {/* <div className="pass">
           {state.type === 1 ? (
