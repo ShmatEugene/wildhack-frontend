@@ -8,6 +8,8 @@ import Auth from './components/Auth/Auth';
 import Logout from './components/Logout';
 import { autoLogin } from './store/actions/auth';
 import Faq from './components/FAQ/Faq';
+import Home from './components/Home/Home';
+import Footer from './components/Footer';
 
 function App() {
   const state = useSelector(({ auth }) => auth);
@@ -20,9 +22,10 @@ function App() {
 
   let routes = (
     <Switch>
-      <Route path="/" exact component={ApplyForAPass} />
+      <Route path="/" exact component={Home} />
       <Route path="/auth" exact component={Auth} />
       <Route path="/applications-list/:id" exact component={ApplicationsList} />
+      <Route path="/apply" exact component={ApplyForAPass} />
       <Route path="/faq" exact component={Faq} />
       <Redirect to={'/'} />
     </Switch>
@@ -34,18 +37,22 @@ function App() {
         <Route path="/applications-list/:id" exact component={ApplicationsList} />
         <Route path="/logout" exact component={Logout} />
         <Route path="/faq" exact component={Faq} />
-        <Route path="/" exact component={ApplyForAPass} />
+        <Route path="/apply" exact component={ApplyForAPass} />
+        <Route path="/" exact component={Home} />
         <Redirect to={'/'} />
       </Switch>
     );
   }
   return (
-    <div className="wrap">
-      <div className="content">
-        <Header />
-        {routes}
+    <>
+      <div className="wrap">
+        <div className="content">
+          <Header />
+          {routes}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 

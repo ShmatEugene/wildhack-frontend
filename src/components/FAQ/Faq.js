@@ -18,8 +18,8 @@ export default function Faq() {
   React.useEffect(() => {
     try {
       const spreadsheetId = '1C1T9fnmoQ_2r1Cnk-aJos1uEpZER9kj4cucR1rAuQyY';
-      const parser = new PublicGoogleSheetsParser(spreadsheetId);
-      parser.parse().then((items) => {
+      const parser = new PublicGoogleSheetsParser();
+      parser.parse(spreadsheetId, 'Алгоритм - перевод').then((items) => {
         console.log(items);
         setQuestions(items);
       });

@@ -436,7 +436,7 @@ export default function ApplyForAPass() {
 
   return (
     <section className="apply-for-a-pass section-indent">
-      <h2>Подать заявку</h2>
+      <h2>Подать заявку в Школу защитников природы</h2>
       <form action="#">
         <div className="left">
           {renderInputs()}
